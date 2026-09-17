@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "mi-proyecto",
+=======
+  "name": "app-civica",
+>>>>>>> 9d38c1e4b2fc328c70960bc1043f856c551de9af
   "private": true,
   "version": "0.0.0",
   "type": "module",
