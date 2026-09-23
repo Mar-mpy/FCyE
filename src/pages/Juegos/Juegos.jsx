@@ -182,7 +182,6 @@ function JuegoJustoInjusto() {
 function JuegoMemorama() {
   const itemsBase = ["Respeto", "Diálogo", "Justicia", "Empatía"]
   
-  // Crea un mazo de 8 cartas (4 parejas)
   const generarCartas = () => {
     const mazo = [...itemsBase, ...itemsBase]
       .sort(() => Math.random() - 0.5)
@@ -264,21 +263,21 @@ function JuegoMemorama() {
 
 /* ================= 3. JUEGO: SOPA DE LETRAS INTERACTIVA ================= */
 function JuegoSopaLetras() {
-  // Palabras a buscar
   const palabras = ["PAZ", "LEY", "VOTO", "ETICA"]
   const [encontradas, setEncontradas] = useState([])
   const [seleccionActual, setSeleccionActual] = useState("")
   const [mensaje, setMensaje] = useState(null)
 
-  // Una cuadrícula sencilla fija 4x4 con las palabras ocultas
+  // Cuadrícula de 5x5 para acomodar perfectamente la palabra ETICA (5 letras)
   const grilla = [
-    ["P", "A", "Z", "X"],
-    ["L", "E", "Y", "O"],
-    ["V", "O", "T", "O"],
-    ["E", "T", "I", "C"]
+    ["E", "T", "I", "C", "A"],
+    ["P", "A", "Z", "X", "O"],
+    ["L", "E", "Y", "M", "T"],
+    ["V", "O", "T", "O", "R"],
+    ["S", "A", "B", "E", "R"]
   ]
 
-  const seleccionarLetra = (letra, fila, col) => {
+  const seleccionarLetra = (letra) => {
     const nuevaSeleccion = seleccionActual + letra
     setSeleccionActual(nuevaSeleccion)
 
@@ -290,7 +289,7 @@ function JuegoSopaLetras() {
         setMensaje("¡Ya habías encontrado esa palabra!")
       }
       setSeleccionActual("")
-    } else if (nuevaSeleccion.length >= 4) {
+    } else if (nuevaSeleccion.length >= 5) {
       setMensaje("No forma una palabra válida, intenta de nuevo.")
       setSeleccionActual("")
     } else {
@@ -309,7 +308,7 @@ function JuegoSopaLetras() {
       <h2 className="text-2xl font-bold font-serif text-[#201D35] mb-1">Sopa de Letras</h2>
       <p className="text-sm text-gray-500 mb-4">Haz clic en las letras consecutivas para formar las 4 palabras: <span className="font-bold text-[#C8154B]">PAZ, LEY, VOTO, ETICA</span></p>
 
-      <div className="flex justify-center gap-2 mb-4 text-xs font-semibold">
+      <div className="flex flex-wrap justify-center gap-2 mb-4 text-xs font-semibold">
         {palabras.map(p => (
           <span key={p} className={`px-2.5 py-1 rounded-lg border ${encontradas.includes(p) ? 'bg-green-100 text-green-700 border-green-300 line-through' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
             {p}
@@ -324,13 +323,13 @@ function JuegoSopaLetras() {
         </div>
       ) : (
         <div>
-          <div className="grid grid-cols-4 gap-3 max-w-[260px] mx-auto my-6">
+          <div className="grid grid-cols-5 gap-2.5 max-w-[300px] mx-auto my-6">
             {grilla.map((fila, fIndex) => 
               fila.map((letra, cIndex) => (
                 <button
                   key={`${fIndex}-${cIndex}`}
-                  onClick={() => seleccionarLetra(letra, fIndex, cIndex)}
-                  className="h-14 bg-[#FAF8F5] border border-gray-300 hover:border-[#65280f] rounded-xl text-xl font-bold text-[#201D35] transition shadow-sm flex items-center justify-center active:scale-95"
+                  onClick={() => seleccionarLetra(letra)}
+                  className="h-12 bg-[#FAF8F5] border border-gray-300 hover:border-[#65280f] rounded-xl text-lg font-bold text-[#201D35] transition shadow-sm flex items-center justify-center active:scale-95"
                 >
                   {letra}
                 </button>
